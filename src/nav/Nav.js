@@ -31,6 +31,9 @@ const Nav = props => {
           <Link to="/profile">Profile</Link>
         </li>
         <li>
+          <Link to="/pets/new">Add A Pet</Link>
+        </li>
+        <li>
           <Link to="/" onClick={handleLogout}>Logout</Link>
         </li>
       </span>

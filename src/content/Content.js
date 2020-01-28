@@ -3,6 +3,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 
 // Custom componentd
+import Form from './pages/Form'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Profile from './pages/Profile'
@@ -17,6 +18,9 @@ const Content = props => {
       } />
       <Route path="/profile" render={
         () => <Profile user={props.user} />
+      } />
+      <Route path="/pets/new" render={
+        () => <Form />
       } />
       <Route path="/signup" render={
         () => <Signup user={props.user} updateUser={props.updateUser} />
