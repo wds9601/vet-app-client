@@ -20,7 +20,7 @@ const Content = props => {
         () => <Profile user={props.user} />
       } />
       <Route path="/pets/new" render={
-        () => <Form />
+        () => <Form user={props.user} />
       } />
       <Route path="/signup" render={
         () => <Signup user={props.user} updateUser={props.updateUser} />
