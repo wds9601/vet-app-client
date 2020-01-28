@@ -50,6 +50,7 @@ const Profile = props => {
         {props.user.email}
       </p>
       <button onClick={callServer}>Call /profile route on server</button>
+      <p>{serverMessage}</p>
     </div>
   )
 }
