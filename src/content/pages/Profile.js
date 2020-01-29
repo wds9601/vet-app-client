@@ -34,11 +34,12 @@ const Profile = props => {
     })
   }
 
-
+  
   // if there is not a user, send them away
   if (!props.user) {
     return <Redirect to="/" />
   }
+
 
   let display = <h2>No pets yet</h2>
   if (props.user.pets.length) {
