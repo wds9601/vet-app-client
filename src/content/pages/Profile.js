@@ -49,9 +49,10 @@ const Profile = props => {
         <strong> Email:</strong>
         {props.user.email}
       </p>
-      <h1>{props.user.pets[0].name}</h1>
+      {/* <h1>{props.user.pets[0].name}</h1>
       <h2>{props.user.pets[0].breed}</h2>
       <h3>{props.user.pets[0].age}</h3>
+      <img alt="pet-pic" src={props.user.pets[0].image} /> */}
       <button onClick={callServer}>Call /profile route on server</button>
       <p>{serverMessage}</p>
     </div>
