@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import { Redirect } from 'react-router-dom'
 
 const Profile = props => {
@@ -40,8 +40,8 @@ const Profile = props => {
     return <Redirect to="/" />
   }
 
-  let display = <h2>No User pets yet</h2>
-  if (props.user.pets.name) {
+  let display = <h2>No pets yet</h2>
+  if (props.user.pets.length) {
     display = (
       <div>
         <h1><a href="/pets/{props.user.pets[0]._id}">{props.user.pets[0].name}</a></h1>
@@ -57,7 +57,7 @@ const Profile = props => {
       <h3>{props.user.firstname} {props.user.lastname}</h3>
       <img alt="profile-pic" src={props.user.profileUrl} />
       <p>
-        <strong> Email:</strong>
+        <strong>Email:</strong>
         {props.user.email}
       </p>
       {display}
