@@ -12,13 +12,15 @@ const PetShow = props => {
     // }
     let display = <h3>No pet here yet!</h3>
     if(!props.user) {
+        console.log('USER INFO', props.user)
         return <Redirect to="/" />
+        
     }
 
     return (
         <div>
             <div className="pet-image">
-                <img alt="pet-image" src={props.user.pets.image} />
+                <img alt="pet" src={props.user.pets.image} />
             </div>
             <div className="pet-details">
                 <h1>{props.user.pets.name}</h1>

@@ -34,14 +34,17 @@ const Profile = props => {
     })
   }
 
-
+  
   // if there is not a user, send them away
   if (!props.user) {
     return <Redirect to="/" />
   }
 
+  // As a default, display this for user's pets
   let display = <h2>No User pets yet</h2>
-  if (props.user.pets.name) {
+
+  // If a user has any pets, change display to a list of their pets
+  if (props.user.pets.length > 0) {
     display = (
       <div>
         <h1><a href="/pets/{props.user.pets[0]._id}">{props.user.pets[0].name}</a></h1>
