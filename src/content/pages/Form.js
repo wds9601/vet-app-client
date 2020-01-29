@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
-import cloudinary from 'cloudinary-react'
-import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
+// import cloudinary from 'cloudinary-react'
+// import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
 
 const Form = props => {
     // Defining variables
@@ -10,7 +10,8 @@ const Form = props => {
     let [breed, setBreed] = useState('')
     let [age, setAge] = useState('')
     let [sex, setSex] = useState('')
-    let [petImage, setPetImage] = useState('')
+    let [redirect, setRedirect] = useState(false)
+    // let [petImage, setPetImage] = useState('')
 
     const handleSubmit = e => {
         let token = localStorage.getItem('userToken')
@@ -43,13 +44,12 @@ const Form = props => {
             setBreed('')
             setAge('')
             setSex('')
+            setRedirect(true)
+            props.updateUser(result.token)
         })
         .catch(err => {
             console.log('Error Posting', err)
         })
-        if (data) {
-            return <Redirect to="/profile" />
-        }
     }
 
     function showUploadWidget() {
@@ -99,6 +99,10 @@ const Form = props => {
         //     console.log("Upload Widget event - ", info);
         //     }
         // });
+    }
+
+    if (redirect) {
+        return <Redirect to="/profile" />
     }
     
     return (
