@@ -6,6 +6,7 @@ import { Route } from 'react-router-dom'
 import Form from './pages/Form'
 import Home from './pages/Home'
 import Login from './pages/Login'
+import PetShow from './pages/PetShow'
 import Profile from './pages/Profile'
 import Signup from './pages/Signup'
 
@@ -21,6 +22,9 @@ const Content = props => {
       } />
       <Route path="/pets/new" render={
         () => <Form user={props.user} />
+      } />
+      <Route path="/pets/:id" render={
+        () => <PetShow user={props.user} />
       } />
       <Route path="/signup" render={
         () => <Signup user={props.user} updateUser={props.updateUser} />

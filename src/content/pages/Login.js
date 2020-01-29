@@ -32,6 +32,7 @@ const Login = props => {
       response.json().then(result => {
         console.log('Response', response) // Meta-data, status, etc
         console.log('Result', result)  // Stuff in the send
+        console.log('TOKEN', result.token)
         if(response.ok) {
           // Update the user's token (back up in App.js)
           props.updateUser(result.token)
