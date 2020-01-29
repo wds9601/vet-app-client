@@ -9,6 +9,7 @@ const Form = props => {
     let [sex, setSex] = useState('')
 
     const handleSubmit = e => {
+        let token = localStorage.getItem('userToken')
         e.preventDefault()
         console.log('Submitted the form', name)
         // Forming the data
@@ -20,11 +21,12 @@ const Form = props => {
             sex
         }
         //API Call
-        fetch(process.env.REACT_APP_SERVER_URL, {
+        fetch(process.env.REACT_APP_SERVER_URL + '/pets', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
-                'Content-type': 'application/json'
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${token}`
             }
         })
         .then(response => response.json())
@@ -45,7 +47,7 @@ const Form = props => {
     
 
     return (
-        <div className="pet-from">
+        <div className="pet-form">
             <h1>Add A Pet!</h1>
             <form onSubmit={handleSubmit}>
                 <div>
@@ -53,22 +55,21 @@ const Form = props => {
                     <input name="name" value={name} onChange={e => setName(e.target.value)} />
                 </div>
                 <div>
-                    <label>Type of Animal</label>
+                    <label>Type of Animal:</label>
                     <input name="typeOfAnimal" value={typeOfAnimal} onChange={e => setTypeOfAnimal(e.target.value)} />
                 </div>
                 <div>
-                    <label>Breed</label>
+                    <label>Breed:</label>
                     <input name="breed" value={breed} onChange={e => setBreed(e.target.value)}/>
                 </div>
                 <div>
-                    <label>Age</label>
+                    <label>Age:</label>
                     <input name="age" value={age} onChange={e => setAge(e.target.value)} />
                 </div>
                 <div>
-                    <label>Sex</label>
+                    <label>Sex:</label>
                     <input name="sex" value={sex} onChange={e => setSex(e.target.value)} />
                 </div>
-
                 <input type="submit" />
             </form>
         </div>
