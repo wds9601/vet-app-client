@@ -40,6 +40,17 @@ const Profile = props => {
     return <Redirect to="/" />
   }
 
+  let display = <h2>No User pets yet</h2>
+  if (props.user.pets.name) {
+    display = (
+      <div>
+        <h1><a href="/pets/{props.user.pets[0]._id}">{props.user.pets[0].name}</a></h1>
+        <h2>{props.user.pets[0].breed}</h2>
+        <h3>{props.user.pets[0].age}</h3>
+      </div>
+    )
+  }
+
   return (
     <div>
       <h2>{props.user.firstname}'s Profile</h2>
@@ -49,9 +60,7 @@ const Profile = props => {
         <strong> Email:</strong>
         {props.user.email}
       </p>
-      <h1>{props.user.pets[0].name}</h1>
-      <h2>{props.user.pets[0].breed}</h2>
-      <h3>{props.user.pets[0].age}</h3>
+      {display}
       <button onClick={callServer}>Call /profile route on server</button>
       <p>{serverMessage}</p>
     </div>
