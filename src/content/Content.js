@@ -2,7 +2,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-// Custom componentd
+// Custom components
 import Form from './pages/Form'
 import Home from './pages/Home'
 import Login from './pages/Login'
@@ -23,7 +23,7 @@ const Content = props => {
         <Route path="/pets/new" render={
           () => <Form user={props.user} updateUser={props.updateUser} />
         } />
-        <Route path="/pets/:id" render={
+        <Route path="/pets/show/:id" render={
           () => <PetShow user={props.user} />
         } component={PetShow} />
         <Route path="/signup" render={

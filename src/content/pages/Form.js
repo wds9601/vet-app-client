@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
-// import cloudinary from 'cloudinary-react'
-// import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
+import Cloudinary from './Cloudinary'
 
 const Form = props => {
     // Defining variables
@@ -11,11 +10,11 @@ const Form = props => {
     let [age, setAge] = useState('')
     let [sex, setSex] = useState('')
     let [redirect, setRedirect] = useState(false)
-    // let [petImage, setPetImage] = useState('')
+    let [petImage, setPetImage] = useState('')
 
     const handleSubmit = e => {
-        let token = localStorage.getItem('userToken')
         e.preventDefault()
+        let token = localStorage.getItem('userToken')
         console.log('Submitted the form', name)
         // Forming the data
         let data = {
@@ -23,7 +22,8 @@ const Form = props => {
             typeOfAnimal,
             breed,
             age,
-            sex
+            sex, 
+            petImage
         }
         //API Call
         fetch(process.env.REACT_APP_SERVER_URL + '/pets', {
@@ -52,55 +52,6 @@ const Form = props => {
         })
     }
 
-    function showUploadWidget() {
-        // cloudinary.openUploadWidget({
-        //     cloudName: "dschawel",
-        //     uploadPreset: "et0rvort",
-        //     sources: [
-        //         "local",
-        //         "url",
-        //         "camera",
-        //         "image_search",
-        //         "facebook",
-        //         "dropbox",
-        //         "instagram",
-        //         "shutterstock"
-        //     ],
-        //     // googleApiKey: "<image_search_google_api_key>",
-        //     showAdvancedOptions: true,
-        //     cropping: true,
-        //     multiple: false,
-        //     defaultSource: "local",
-        //     styles: {
-        //         palette: {
-        //             window: "#FFFFFF",
-        //             windowBorder: "#90A0B3",
-        //             tabIcon: "#0078FF",
-        //             menuIcons: "#5A616A",
-        //             textDark: "#000000",
-        //             textLight: "#FFFFFF",
-        //             link: "#0078FF",
-        //             action: "#FF620C",
-        //             inactiveTabIcon: "#0E2F5A",
-        //             error: "#F44235",
-        //             inProgress: "#0078FF",
-        //             complete: "#20B832",
-        //             sourceBg: "#E4EBF1"
-        //         },
-        //         fonts: {
-        //             default: {
-        //                 active: true
-        //             }
-        //         }
-        //     }
-        // },
-        // (err, info) => {
-        //     if (!err) {    
-        //     console.log("Upload Widget event - ", info);
-        //     }
-        // });
-    }
-
     if (redirect) {
         return <Redirect to="/profile" />
     }
@@ -108,6 +59,13 @@ const Form = props => {
     return (
         <div className="pet-form">
             <h1>Add A Pet!</h1>
+
+            <div>
+                <p>Pet Image (optional):</p>
+                <Cloudinary setPetImage={setPetImage}/>
+            </div>
+            <img alt="pet image" src={petImage} />
+
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Name:</label>
@@ -129,7 +87,7 @@ const Form = props => {
                     <label>Sex:</label>
                     <input name="sex" value={sex} onChange={e => setSex(e.target.value)} />
                 </div>
-                <button id="upload_widget" class="cloudinary-button" onClick={showUploadWidget} >Upload A Picture</button>
+
                 <input type="submit" />
             </form>
         </div>
