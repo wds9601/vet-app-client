@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 import Cloudinary from './Cloudinary'
 
@@ -12,11 +12,11 @@ const Form = props => {
     let [redirect, setRedirect] = useState(false)
     let [petImage, setPetImage] = useState('')
 
-
     // const petPhoto = (url) => {
     //     setPetImage(url)
     //     console.log(url)
     // }
+
     const handleSubmit = e => {
         let token = localStorage.getItem('userToken')
         e.preventDefault()
@@ -27,7 +27,8 @@ const Form = props => {
             typeOfAnimal,
             breed,
             age,
-            sex
+            sex, 
+            // petImage
         }
         //API Call
         fetch(process.env.REACT_APP_SERVER_URL + '/pets', {
@@ -84,10 +85,14 @@ const Form = props => {
                     <label>Sex:</label>
                     <input name="sex" value={sex} onChange={e => setSex(e.target.value)} />
                 </div>
-                <div>
-                    <Cloudinary />
-                </div>
+                {/* <div>
+                    <label>Pet Image:</label>
+                    <input name="petImage" value={petImage} />
+                </div> */}
                 <input type="submit" />
+                <div>
+                    <Cloudinary setPetImage={setPetImage}/>
+                </div>
             </form>
         </div>
     )
