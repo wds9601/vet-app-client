@@ -12,14 +12,9 @@ const Form = props => {
     let [redirect, setRedirect] = useState(false)
     let [petImage, setPetImage] = useState('')
 
-    // const petPhoto = (url) => {
-    //     setPetImage(url)
-    //     console.log(url)
-    // }
-
     const handleSubmit = e => {
-        let token = localStorage.getItem('userToken')
         e.preventDefault()
+        let token = localStorage.getItem('userToken')
         console.log('Submitted the form', name)
         // Forming the data
         let data = {
@@ -28,7 +23,7 @@ const Form = props => {
             breed,
             age,
             sex, 
-            // petImage
+            petImage
         }
         //API Call
         fetch(process.env.REACT_APP_SERVER_URL + '/pets', {
@@ -64,6 +59,13 @@ const Form = props => {
     return (
         <div className="pet-form">
             <h1>Add A Pet!</h1>
+
+            <div>
+                <p>Pet Image (optional):</p>
+                <Cloudinary setPetImage={setPetImage}/>
+            </div>
+            <img alt="pet image" src={petImage} />
+
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Name:</label>
@@ -85,14 +87,8 @@ const Form = props => {
                     <label>Sex:</label>
                     <input name="sex" value={sex} onChange={e => setSex(e.target.value)} />
                 </div>
-                {/* <div>
-                    <label>Pet Image:</label>
-                    <input name="petImage" value={petImage} />
-                </div> */}
+
                 <input type="submit" />
-                <div>
-                    <Cloudinary setPetImage={setPetImage}/>
-                </div>
             </form>
         </div>
     )
