@@ -1,9 +1,12 @@
 import React, {useState} from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
+
+import PetsDisplay from './PetsDisplay'
 
 const Profile = props => {
   //Declare and initialize state
   let [serverMessage, setServerMessage] = useState('')
+  console.log('PROPS in PROFILE', props)
 
   const callServer = () => {
     let token = localStorage.getItem('userToken')
@@ -40,17 +43,45 @@ const Profile = props => {
     return <Redirect to="/" />
   }
 
+//   const PetsDisplay = props => {
+//     console.log('USER', props.user)
+//     if (!props.user.pets.length) {
+//         return (
+//             <h2>No pets yet</h2>
+//         )
+//     } else {
+//         return (
+//             <div className="pets-display">
+//                 <h1><a href="/pets/{props.user.pet._id}">{props.user.pet.name}</a></h1>
+//             </div>
+//         )
+//     }
+// }
 
-  let display = <h2>No pets yet</h2>
-  if (props.user.pets.length) {
-    display = (
-      <div>
-        <h1><a href="/pets/{props.user.pets[0]._id}">{props.user.pets[0].name}</a></h1>
-        <h2>{props.user.pets[0].breed}</h2>
-        <h3>{props.user.pets[0].age}</h3>
-      </div>
-    )
-  }
+  // let displays = props.user.pets.map((p, i) => {
+  //   return (
+  //     <PetsDisplay 
+  //       key={p._id}
+  //       pet={p}
+  //     />
+  //   )
+  // })
+
+
+  // let display = <h2>No pets yet</h2>
+  // if (props.user.pets.length) {
+    
+      
+  //       props.user.pets.forEach(pet => {
+  //         display = (
+  //           <div>
+  //             <h1><a href="/pets/{pet._id}">{pet.name}</a></h1>
+  //             <h2>{pet.breed}</h2>
+  //             <h3>{pet.age}</h3>
+  //           </div>
+  //         )
+  //       })
+  // }
 
   return (
     <div>
@@ -61,7 +92,13 @@ const Profile = props => {
         <strong>Email:</strong>
         {props.user.email}
       </p>
-      {display}
+      <div>
+        {props.user.pets.map(p => (
+          <h3 key={p._id}>
+            <Link user={props} to={`/pets/${p._id}`}>{p.name}</Link>
+          </h3>
+        ))}
+      </div>
       <button onClick={callServer}>Call /profile route on server</button>
       <p>{serverMessage}</p>
     </div>
