@@ -1,6 +1,6 @@
 // Packages
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 // Custom componentd
 import Form from './pages/Form'
@@ -12,24 +12,24 @@ import Signup from './pages/Signup'
 
 const Content = props => {
   return (
-    <div className="container">
-      <Route exact path="/" component={Home} />
-      <Route path="/login" render={
-        () => <Login user={props.user} updateUser={props.updateUser} />
-      } />
-      <Route path="/profile" render={
-        () => <Profile user={props.user} />
-      } />
-      <Route path="/pets/new" render={
-        () => <Form user={props.user} updateUser={props.updateUser} />
-      } />
-      <Route path="/pets/:id" render={
-        () => <PetShow user={props.user} />
-      } />
-      <Route path="/signup" render={
-        () => <Signup user={props.user} updateUser={props.updateUser} />
-      } />
-    </div>
+      <div className="container">
+        <Route exact path="/" component={Home} />
+        <Route path="/login" render={
+          () => <Login user={props.user} updateUser={props.updateUser} />
+        } />
+        <Route path="/profile" render={
+          () => <Profile user={props.user} />
+        } />
+        <Route path="/pets/new" render={
+          () => <Form user={props.user} updateUser={props.updateUser} />
+        } />
+        <Route path="/pets/:id" render={
+          () => <PetShow user={props.user} />
+        } component={PetShow} />
+        <Route path="/signup" render={
+          () => <Signup user={props.user} updateUser={props.updateUser} />
+        } />
+      </div>
   )
 }
 
