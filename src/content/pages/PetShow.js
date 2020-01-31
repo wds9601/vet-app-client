@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Redirect, NavLink } from 'react-router-dom'
-// import { withRouter } from 'react-router'
+import { Redirect } from 'react-router-dom'
 import '../../App.css';
 
 const PetShow = ({match}, props) => {
@@ -12,13 +11,15 @@ const PetShow = ({match}, props) => {
     let [rabiesShot, setRabiesShot] = useState('')
     let [microchip,setMicrochip] = useState('')
 
+    let petId = match.params.id
+
     //Call getPet(with match params) on load
     useEffect(() => {
         getPet(match)
     }, [])
 
     const getPet =  async () => {
-        let petId = match.params.id
+        // let petId = match.params.id
         let token = localStorage.getItem('userToken')
         await fetch(`${process.env.REACT_APP_SERVER_URL}/pets/${petId}`, {
             headers: {
@@ -70,10 +71,6 @@ const PetShow = ({match}, props) => {
         
     }
 
-    if (redirect) {
-        return <Redirect to='/profile' />
-    }
-
     const handleSubmit = e => {
         e.preventDefault()
         let petId = match.params.id
@@ -105,10 +102,6 @@ const PetShow = ({match}, props) => {
         .catch(err => {
             console.log('Error Posting', err)
         })
-    }
-    
-    if (redirect) {
-        return <Redirect to='/profile' />
     }
 
     console.log('Pet object', pet)
@@ -144,13 +137,15 @@ const PetShow = ({match}, props) => {
             .catch(err => {
                 console.log('handlePetDelete Error', err)
             })
-        }
+    }
     
+    console.log('BEFORE REDIRECT 142', petId)
+
     if (redirect) {
-        return <Redirect to='/profile' />
+        return <Redirect to="/profile" />
     }
 
-    console.log(pet._id)
+    console.log('BEFORE RENDER 147', petId)
 
     let contentShow;
     if (pet.summary) {
