@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 import Cloudinary from './Cloudinary'
+import '../../App.css';
+
 
 const Form = props => {
     // Defining variables
@@ -11,11 +13,13 @@ const Form = props => {
     let [sex, setSex] = useState('')
     let [redirect, setRedirect] = useState(false)
     let [petImage, setPetImage] = useState('')
+    let [rabiesShot, setRabiesShot] = useState('')
+    let [microchip, setMicrochip] = useState('')
 
     const handleSubmit = e => {
         e.preventDefault()
         let token = localStorage.getItem('userToken')
-        console.log('Submitted the form', name)
+        // console.log('Submitted the form', name)
         // Forming the data
         let data = {
             name,
@@ -23,7 +27,9 @@ const Form = props => {
             breed,
             age,
             sex, 
-            petImage
+            petImage,
+            rabiesShot,
+            microchip
         }
         //API Call
         fetch(process.env.REACT_APP_SERVER_URL + '/pets', {
@@ -45,7 +51,7 @@ const Form = props => {
             setAge('')
             setSex('')
             setRedirect(true)
-            props.updateUser(result.token)
+            // props.updateUser(result.token)
         })
         .catch(err => {
             console.log('Error Posting', err)
@@ -64,7 +70,7 @@ const Form = props => {
                 <p>Pet Image (optional):</p>
                 <Cloudinary setPetImage={setPetImage}/>
             </div>
-            <img alt="pet image" src={petImage} />
+            <img alt="pet" src={petImage} />
 
             <form onSubmit={handleSubmit}>
                 <div>
@@ -86,6 +92,14 @@ const Form = props => {
                 <div>
                     <label>Sex:</label>
                     <input name="sex" value={sex} onChange={e => setSex(e.target.value)} />
+                </div>
+                <div>
+                    <label>Rabies Shot:</label>
+                    <input name="rabiesShot" value={rabiesShot} onChange={e => setRabiesShot(e.target.value)} />
+                </div>
+                <div>
+                    <label>Microchip Number:</label>
+                    <input name="microchip" value={microchip} onChange={e => setMicrochip(e.target.value)} />
                 </div>
 
                 <input type="submit" />
