@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Redirect, NavLink } from 'react-router-dom'
 import { withRouter } from 'react-router'
-import Async from 'react-async'
 
 const PetShow = ({match}, props) => {
 
@@ -28,29 +27,31 @@ const PetShow = ({match}, props) => {
         getPet(match)
     }, [])
 
-    const getPet = async () => {
+    const getPet =  async () => {
         console.log('MATCH #2', match)
         let petId = match.params.id
         console.log('petId=====', petId)
         let token = localStorage.getItem('userToken')
-        await fetch(`${process.env.REACT_APP_SERVER_URL}/pets/${petId}`, {
+        const fetchPet = await fetch(`${process.env.REACT_APP_SERVER_URL}/pets/${petId}`, {
             headers: {
                 'Content-type': 'application/json',
                 'Authorization': `Bearer ${token}`
             }
         })
-        .then(response => response.json())
-        .then(foundPet => {
-            console.log('Success', foundPet)
-            setPet(foundPet)
-        })
-        .catch(err => {
-            console.log('Fail pet fetch', err)
-        })
+        const gotPet = await fetchPet.json()
+        console.log('GOTPET====', gotPet)
+        // .then(response => response.json())
+        // .then(foundPet => {
+        //     console.log('Success', foundPet)
+        //     setPet(foundPet)
+        // })
+        // .catch(err => {
+        //     console.log('Fail pet fetch', err)
+        // })
     }
     
 
-    console.log('This is the pet object', pet.pet)
+    console.log('This is the pet object', pet)
     
 
     return (
