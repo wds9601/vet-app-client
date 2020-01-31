@@ -6,7 +6,6 @@ import '../../App.css';
 const PetShow = ({match}, props) => {
     let [treatmentDate, setTreatmentDate] = useState('')
     let [treatment, setTreatment] = useState('')
-    let [redirect, setRedirect] = useState(false)
 
     let [redirect, setRedirect] = useState(false)
     let [pet, setPet] = useState({})
@@ -174,6 +173,9 @@ const PetShow = ({match}, props) => {
                 </div>
                 <input type="submit" />
             </form>
+
+            <h3>Previous Medical History</h3>
+            {previousTreatment}
     
             <h3>Add a Treatment</h3>
                 <form onSubmit={handleSubmit}>
