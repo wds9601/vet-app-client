@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-// import { Redirect, NavLink } from 'react-router-dom'
+import { Redirect, NavLink } from 'react-router-dom'
 // import { withRouter } from 'react-router'
 import '../../App.css';
 
 const PetShow = ({match}, props) => {
     let [treatmentDate, setTreatmentDate] = useState('')
     let [treatment, setTreatment] = useState('')
+    let [redirect, setRedirect] = useState(false)
 
     let [pet, setPet] = useState({})
     let [rabiesShot, setRabiesShot] = useState({})
@@ -100,6 +101,7 @@ const PetShow = ({match}, props) => {
             // Reset the state
             setTreatmentDate('')
             setTreatment('')
+            setRedirect(true)
             // props.updateUser(result.token)
 
         })
@@ -107,8 +109,26 @@ const PetShow = ({match}, props) => {
             console.log('Error Posting', err)
         })
     }
+    
+    if (redirect) {
+        return <Redirect to='/profile' />
+    }
 
-    console.log(pet._id)
+    console.log('Pet object', pet)
+    console.log('Pet treatment', pet.treatment)
+
+    let previousTreatment
+    if (pet.treatment) {
+        previousTreatment = pet.treatment.map((treatment, i) => {
+            if (treatment.treatment) 
+            return (
+            <div key={i}>
+                <p>On {treatment.treatmentDate}, {pet.name} had {treatment.treatment}</p>
+            </div>
+            )
+        })
+    }
+
     let contentShow;
     if (pet.summary) {
         contentShow = (
@@ -117,13 +137,14 @@ const PetShow = ({match}, props) => {
             <p><strong>{pet.name}</strong> is a {pet.breed} and is {pet.age} years old.</p>
             <h3>Medical Records</h3>
             <p>Has the pet had his rabies shot, {pet.summary.rabiesShot}.  Their microchip number is {pet.summary.microchip}</p>
-    
+            <h3>Previous Medical History</h3>
+            {previousTreatment}
 
             <h3>Add a Treatment</h3>
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label>Treatment Date:</label>
-                        <input name="treatmentDate" value={treatmentDate} onChange={e => setTreatmentDate(e.target.value)} />
+                        <input name="treatmentDate" value={treatmentDate} placeholder='01312020' onChange={e => setTreatmentDate(e.target.value)} />
                     </div>
                     <div>
                         <label>Treatment:</label>
