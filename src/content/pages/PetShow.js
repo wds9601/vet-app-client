@@ -35,11 +35,11 @@ const PetShow = ({match}, props) => {
         })
     }
 
-    const handleSummaryEdit = async () => {
+    const handleSummaryEdit = async (e) => {
         e.preventDefault()
         let petId = match.params.id
         let token = localStorage.getItem('userToken')
-        console.log('Submitted the form', name)
+        console.log('Submitted the form', petId)
         // Forming the data
         let data = {
             rabiesShot,
@@ -64,6 +64,16 @@ const PetShow = ({match}, props) => {
         .catch(err => {
             console.log('Fail pet fetch', err)
         })
+
+        // .then(response => response.json())
+        // .then(result => {
+        //     // Refreshing the pet list
+        //     // props.refreshPets()
+        //     // Reset the state
+        //     setRabiesShot()
+        //     setMicrochip()
+        //     setRedirect(true)
+        //     props.updateUser(result.token)
     }
 
     const handleSubmit = e => {
@@ -90,16 +100,6 @@ const PetShow = ({match}, props) => {
             setTreatmentDate('')
             setTreatment('')
             // props.updateUser(result.token)
-
-        .then(response => response.json())
-        .then(result => {
-            // Refreshing the pet list
-            // props.refreshPets()
-            // Reset the state
-            setRabiesShot()
-            setMicrochip()
-            setRedirect(true)
-            props.updateUser(result.token)
 
         })
         .catch(err => {
