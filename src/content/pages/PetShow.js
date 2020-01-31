@@ -8,9 +8,10 @@ const PetShow = ({match}, props) => {
     let [treatment, setTreatment] = useState('')
     let [redirect, setRedirect] = useState(false)
 
+    let [redirect, setRedirect] = useState(false)
     let [pet, setPet] = useState({})
-    let [rabiesShot, setRabiesShot] = useState({})
-    let [microchip,setMicrochip] = useState({})
+    let [rabiesShot, setRabiesShot] = useState('')
+    let [microchip,setMicrochip] = useState('')
 
     //Call getPet(with match params) on load
     useEffect(() => {
@@ -36,7 +37,7 @@ const PetShow = ({match}, props) => {
         })
     }
 
-    const handleSummaryEdit = async (e) => {
+    const handleSummaryEdit = (e) => {
         e.preventDefault()
         let petId = match.params.id
         let token = localStorage.getItem('userToken')
@@ -55,26 +56,23 @@ const PetShow = ({match}, props) => {
                 'Authorization': `Bearer ${token}`
             }
         })
-        // const gotPet = await fetchPet.json()
-        // console.log('GOTPET====', gotPet)
         .then(response => response.json())
-        .then(foundPet => {
-            console.log('Success', foundPet)
-            setPet(foundPet)
+        .then(newSummary => {
+            console.log('Success', newSummary)
+            console.log('Rabies Shot', newSummary.summary.rabiesShot)
+            console.log('Microchip', newSummary.summary.microchip)
+            setRabiesShot(newSummary.summary.rabiesShot)
+            setMicrochip(newSummary.summary.microchip)
+            setRedirect(true)
         })
         .catch(err => {
             console.log('Fail pet fetch', err)
         })
+        
+    }
 
-        // .then(response => response.json())
-        // .then(result => {
-        //     // Refreshing the pet list
-        //     // props.refreshPets()
-        //     // Reset the state
-        //     setRabiesShot()
-        //     setMicrochip()
-        //     setRedirect(true)
-        //     props.updateUser(result.token)
+    if (redirect) {
+        return <Redirect to='/profile' />
     }
 
     const handleSubmit = e => {
@@ -129,17 +127,54 @@ const PetShow = ({match}, props) => {
         })
     }
 
+    const handlePetDelete = () => {
+        let petId = match.params.id
+        let token = localStorage.getItem('userToken')
+        fetch(`${process.env.REACT_APP_SERVER_URL}/pets/${petId}`, {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            method: 'DELETE'
+        })
+        .then(response => 
+            response.status === 204 ? {} : response.json())
+            .then(result => {
+            setRedirect(true)
+            })
+            .catch(err => {
+                console.log('handlePetDelete Error', err)
+            })
+        }
+    
+    if (redirect) {
+        return <Redirect to='/profile' />
+    }
+
+    console.log(pet._id)
+
     let contentShow;
     if (pet.summary) {
         contentShow = (
         <div>
             <img alt="pet" src={pet.petImage} />
+            <button onClick={handlePetDelete}>Remove This Pet</button>
             <p><strong>{pet.name}</strong> is a {pet.breed} and is {pet.age} years old.</p>
             <h3>Medical Records</h3>
-            <p>Has the pet had his rabies shot, {pet.summary.rabiesShot}.  Their microchip number is {pet.summary.microchip}</p>
-            <h3>Previous Medical History</h3>
-            {previousTreatment}
-
+            <p>Has the pet had his rabies shot: {pet.summary.rabiesShot}.  Their microchip number is {pet.summary.microchip}</p>
+            <h3>Edit This Medical Record</h3>
+            <form onSubmit={handleSummaryEdit}>
+                <div>
+                    <label>Rabies Shot(y/n):</label>
+                    <input name="rabiesShot" value={rabiesShot} onChange={e => setRabiesShot(e.target.value)} />
+                </div>
+                <div>
+                    <label>Microchip #:</label>
+                    <input name="microchip" value={microchip} onChange={e => setMicrochip(e.target.value)} />
+                </div>
+                <input type="submit" />
+            </form>
+    
             <h3>Add a Treatment</h3>
                 <form onSubmit={handleSubmit}>
                     <div>
