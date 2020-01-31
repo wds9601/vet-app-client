@@ -38,7 +38,7 @@ const App = props => {
   const decodeToken = existingToken => {
     let token = existingToken || localStorage.getItem('userToken')
 
-    console.log('The token is:', token)
+    // console.log('The token is:', token)
     if (token) {
       let decoded = jwtDecode(token)
 

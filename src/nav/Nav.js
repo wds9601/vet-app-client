@@ -1,4 +1,5 @@
 import React from 'react'
+// import { Redirect } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
 const Nav = props => {
@@ -6,9 +7,9 @@ const Nav = props => {
     e.preventDefault()
     // Remove the token from localstorage (or cookies)
     localStorage.removeItem('userToken')
-
     // Update the state of the App
     props.updateUser(null)
+    // <Redirect exact path="/" component={Home} /> 
   }
 
   let links = (

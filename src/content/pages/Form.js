@@ -15,7 +15,7 @@ const Form = props => {
     const handleSubmit = e => {
         e.preventDefault()
         let token = localStorage.getItem('userToken')
-        console.log('Submitted the form', name)
+        // console.log('Submitted the form', name)
         // Forming the data
         let data = {
             name,
@@ -45,7 +45,7 @@ const Form = props => {
             setAge('')
             setSex('')
             setRedirect(true)
-            props.updateUser(result.token)
+            // props.updateUser(result.token)
         })
         .catch(err => {
             console.log('Error Posting', err)
@@ -64,7 +64,7 @@ const Form = props => {
                 <p>Pet Image (optional):</p>
                 <Cloudinary setPetImage={setPetImage}/>
             </div>
-            <img alt="pet image" src={petImage} />
+            <img alt="pet" src={petImage} />
 
             <form onSubmit={handleSubmit}>
                 <div>
