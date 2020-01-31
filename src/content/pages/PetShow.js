@@ -63,7 +63,6 @@ const PetShow = ({match}, props) => {
             setRabiesShot(newSummary.summary.rabiesShot)
             setMicrochip(newSummary.summary.microchip)
             setRedirect(true)
-            
         })
         .catch(err => {
             console.log('Fail pet fetch', err)
@@ -107,12 +106,36 @@ const PetShow = ({match}, props) => {
         })
     }
 
+    const handlePetDelete = () => {
+        let petId = match.params.id
+        let token = localStorage.getItem('userToken')
+        fetch(`${process.env.REACT_APP_SERVER_URL}/pets/${petId}`, {
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            method: 'DELETE'
+        })
+        .then(response => 
+            response.status === 204 ? {} : response.json())
+            .then(result => {
+            setRedirect(true)
+            })
+            .catch(err => {
+                console.log('handlePetDelete Error', err)
+            })
+        }
+    if (redirect) {
+        return <Redirect to='/profile' />
+    }
+
     console.log(pet._id)
     let contentShow;
     if (pet.summary) {
         contentShow = (
         <div>
             <img alt="pet" src={pet.petImage} />
+            <button onClick={handlePetDelete}>Remove This Pet</button>
             <p><strong>{pet.name}</strong> is a {pet.breed} and is {pet.age} years old.</p>
             <h3>Medical Records</h3>
             <p>Has the pet had his rabies shot: {pet.summary.rabiesShot}.  Their microchip number is {pet.summary.microchip}</p>

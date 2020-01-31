@@ -11,7 +11,7 @@ const Nav = props => {
     props.updateUser(null)
 
     //Redirect back to Login Page
-    return <Redirect to="/" />
+    return <Redirect exact path="/" />
   }
 
   let links = (
