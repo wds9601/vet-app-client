@@ -6,6 +6,7 @@ import '../../App.css';
 const PetShow = ({match}, props) => {
     let [treatmentDate, setTreatmentDate] = useState('')
     let [treatment, setTreatment] = useState('')
+    let [redirect, setRedirect] = useState(false)
 
     let [redirect, setRedirect] = useState(false)
     let [pet, setPet] = useState({})
@@ -98,11 +99,31 @@ const PetShow = ({match}, props) => {
             // Reset the state
             setTreatmentDate('')
             setTreatment('')
+            setRedirect(true)
             // props.updateUser(result.token)
 
         })
         .catch(err => {
             console.log('Error Posting', err)
+        })
+    }
+    
+    if (redirect) {
+        return <Redirect to='/profile' />
+    }
+
+    console.log('Pet object', pet)
+    console.log('Pet treatment', pet.treatment)
+
+    let previousTreatment
+    if (pet.treatment) {
+        previousTreatment = pet.treatment.map((treatment, i) => {
+            if (treatment.treatment) 
+            return (
+            <div key={i}>
+                <p>On {treatment.treatmentDate}, {pet.name} had {treatment.treatment}</p>
+            </div>
+            )
         })
     }
 
@@ -125,11 +146,13 @@ const PetShow = ({match}, props) => {
                 console.log('handlePetDelete Error', err)
             })
         }
+    
     if (redirect) {
         return <Redirect to='/profile' />
     }
 
     console.log(pet._id)
+
     let contentShow;
     if (pet.summary) {
         contentShow = (
@@ -152,12 +175,11 @@ const PetShow = ({match}, props) => {
                 <input type="submit" />
             </form>
     
-
             <h3>Add a Treatment</h3>
                 <form onSubmit={handleSubmit}>
                     <div>
                         <label>Treatment Date:</label>
-                        <input name="treatmentDate" value={treatmentDate} onChange={e => setTreatmentDate(e.target.value)} />
+                        <input name="treatmentDate" value={treatmentDate} placeholder='01312020' onChange={e => setTreatmentDate(e.target.value)} />
                     </div>
                     <div>
                         <label>Treatment:</label>
