@@ -1,71 +1,94 @@
 import React, { useState, useEffect } from 'react'
-import { Redirect, NavLink } from 'react-router-dom'
-import { withRouter } from 'react-router'
 
 const PetShow = ({match}, props) => {
 
-    // const getMedical = () => {
-    //     <NavLink to="/pets/:id/medical" />
-    // }
-
-    // const getTreatment = () => {
-    //     <NavLink to="/pets/:id/treatment" />
-    // }
-    // if(!props.user) {
-    //     console.log('USER INFO', props.user)
-    //     return <Redirect to="/" />
-        
-    // }
-
     let [pet, setPet] = useState({})
+    let [rabiesShot, setRabiesShot] = useState({})
+    let [microchip,setMicrochip] = useState({})
 
     //Call getPet(with match params) on load
     useEffect(() => {
-        console.log('Trying to get a single pet')
-        console.log('MATCH #1', match)
-        console.log('PROPS====', props)
         getPet(match)
     }, [])
 
     const getPet =  async () => {
-        console.log('MATCH #2', match)
         let petId = match.params.id
-        console.log('petId=====', petId)
         let token = localStorage.getItem('userToken')
-        const fetchPet = await fetch(`${process.env.REACT_APP_SERVER_URL}/pets/${petId}`, {
+        await fetch(`${process.env.REACT_APP_SERVER_URL}/pets/${petId}`, {
             headers: {
                 'Content-type': 'application/json',
                 'Authorization': `Bearer ${token}`
             }
         })
-        const gotPet = await fetchPet.json()
-        console.log('GOTPET====', gotPet)
-        // .then(response => response.json())
-        // .then(foundPet => {
-        //     console.log('Success', foundPet)
-        //     setPet(foundPet)
-        // })
-        // .catch(err => {
-        //     console.log('Fail pet fetch', err)
-        // })
+        .then(response => response.json())
+        .then(foundPet => {
+            console.log('Success', foundPet)
+            setPet(foundPet)
+        })
+        .catch(err => {
+            console.log('Fail pet fetch', err)
+        })
+    }
+
+    const handleSummaryEdit = async () => {
+        e.preventDefault()
+        let petId = match.params.id
+        let token = localStorage.getItem('userToken')
+        console.log('Submitted the form', name)
+        // Forming the data
+        let data = {
+            rabiesShot,
+            microchip
+        }
+        //API Call
+        fetch(`${process.env.REACT_APP_SERVER_URL}/pets/${petId}/medical`, {
+            method: 'PUT',
+            body: JSON.stringify(data),
+            headers: {
+                'Content-type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(response => response.json())
+        .then(result => {
+            // Refreshing the pet list
+            // props.refreshPets()
+            // Reset the state
+            setRabiesShot()
+            setMicrochip()
+            setRedirect(true)
+            props.updateUser(result.token)
+        })
+        .catch(err => {
+            console.log('Error Posting', err)
+        })
     }
     
 
     console.log('This is the pet object', pet)
     
+    // Conditional render
+    let contentShow;
+    if (pet) {
+        contentShow = 
+            <div >
+                <img alt="pet" src={pet.petImage} />
+                <p><strong>{pet.name}</strong> is a {pet.breed} and is {pet.age} years old.</p>
+
+                <h3>Medical Records</h3>
+                {/* <p>{pet.summary.rabiesShot}</p> */}
+                <button type="button" onClick={handleSummaryEdit}>Edit Medical Record</button>
+            </div>
+            
+        
+    } else {
+        console.log('No Pets Here')
+        contentShow = <p>Loading...</p>
+    }
 
     return (
         <div>
-            <div className="pet-image">
-                <img alt="pet" src="" />
-            </div>
-            <div className="pet-details">
-                <p>{pet.name}</p>
-            </div>
-            {/* <div>
-                <button type="button" onClick={getMedical}>Medical Summary Details</button>
-                <button type="button" onClick={getTreatment}>Previous Treatments</button>
-            </div> */}
+            {contentShow}
         </div>
     )
 }
