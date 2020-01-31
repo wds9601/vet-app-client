@@ -9,7 +9,6 @@ const Nav = props => {
     localStorage.removeItem('userToken')
     // Update the state of the App
     props.updateUser(null)
-    // <Redirect exact path="/" component={Home} /> 
   }
 
   let links = (

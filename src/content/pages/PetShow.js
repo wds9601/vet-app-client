@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 // import { Redirect, NavLink } from 'react-router-dom'
 // import { withRouter } from 'react-router'
+import '../../App.css';
 
 const PetShow = ({match}, props) => {
     let [treatmentDate, setTreatmentDate] = useState('')
@@ -62,7 +63,7 @@ const PetShow = ({match}, props) => {
             treatment
         }
         //API Call
-        fetch(process.env.REACT_APP_SERVER_URL + '/:petId/treatment', {
+        fetch(process.env.REACT_APP_SERVER_URL + '/:petId', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -81,29 +82,40 @@ const PetShow = ({match}, props) => {
             console.log('Error Posting', err)
         })
     }
-    
 
-    // console.log('This is the pet object', pet)
-    // console.log(pet.petImage)
-    
-    return (
+    console.log(pet.summary)
+    let contentShow;
+    if (pet.summary) {
+        console.log(`inside the if statement`, pet.summary)
+        contentShow = (
         <div>
             <img alt="pet" src={pet.petImage} />
             <p><strong>{pet.name}</strong> is a {pet.breed} and is {pet.age} years old.</p>
-                <div className="pet-treatment">
-                    <h3>Add a Treatment</h3>
-                    <form onSubmit={handleSubmit}>
-                        <div>
-                            <label>Treatment Date:</label>
-                            <input name="treatmentDate" value={treatmentDate} onChange={e => setTreatmentDate(e.target.value)} />
-                        </div>
-                        <div>
-                            <label>Treatment:</label>
-                            <input name="treatment" value={treatment} onChange={e => setTreatment(e.target.value)} />
-                        </div>
-                        <input type="submit" />
-                    </form>
-                </div>
+            <h3>Medical Records</h3>
+            <p>Has the pet had his rabies shot, {pet.summary.rabiesShot}.  Their microchip number is {pet.summary.microchip}</p>
+    
+            <h3>Add a Treatment</h3>
+                <form onSubmit={handleSubmit}>
+                    <div>
+                        <label>Treatment Date:</label>
+                        <input name="treatmentDate" value={treatmentDate} onChange={e => setTreatmentDate(e.target.value)} />
+                    </div>
+                    <div>
+                        <label>Treatment:</label>
+                        <input name="treatment" value={treatment} onChange={e => setTreatment(e.target.value)} />
+                    </div>
+                    <input type="submit" />
+                </form>
+        </div>
+        )
+    } else {
+        console.log('No Pets Here')
+        contentShow = <p>Loading</p>
+    }
+
+    return (
+        <div>
+            {contentShow}
             {/* <div>
                 <button type="button" onClick={getMedical}>Medical Summary Details</button>
                 <button type="button" onClick={getTreatment}>Previous Treatments</button>
