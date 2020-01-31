@@ -28,7 +28,7 @@ const PetShow = ({match}, props) => {
         })
         .then(response => response.json())
         .then(foundPet => {
-            console.log('Success', foundPet)
+            // console.log('Success', foundPet)
             setPet(foundPet)
         })
         .catch(err => {
@@ -77,6 +77,7 @@ const PetShow = ({match}, props) => {
 
     const handleSubmit = e => {
         e.preventDefault()
+        let petId = match.params.id
         let token = localStorage.getItem('userToken')
         console.log('Submitted the form', treatment)
         // Forming the data
@@ -85,7 +86,7 @@ const PetShow = ({match}, props) => {
             treatment
         }
         //API Call
-        fetch(process.env.REACT_APP_SERVER_URL + '/:petId', {
+        fetch(`${process.env.REACT_APP_SERVER_URL}/pets/${petId}/treatment`, {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -106,10 +107,9 @@ const PetShow = ({match}, props) => {
         })
     }
 
-    console.log(pet.summary)
+    console.log(pet._id)
     let contentShow;
     if (pet.summary) {
-        console.log(`inside the if statement`, pet.summary)
         contentShow = (
         <div>
             <img alt="pet" src={pet.petImage} />
