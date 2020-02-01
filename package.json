@@ -2,6 +2,10 @@
   "name": "mern-auth-client",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "npm": "6.13.2",
+    "node": "13.3.0"
+  },
   "dependencies": {
     "axios": "^0.19.0",
     "cloudinary": "^1.19.0",
