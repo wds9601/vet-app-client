@@ -49,6 +49,9 @@ const Nav = props => {
     <nav>
       <ul>
         <li>
+          <img className="nav-logo" alt="logo" src="https://i.imgur.com/YyfzRKI.png?1" />
+        </li>
+        <li>
           <Link to="/">Home</Link>
         </li>
         {links}
