@@ -29,7 +29,7 @@ const Signup = props => {
   
     // Send the user sign up data to the server
     console.log(process.env.REACT_APP_SERVER_URL)
-    fetch(`${process.env.REACT_APP_SERVER_URL}/auth/signup`, { //REACT automatically handles .env files dont need to require 'dotenv'
+    fetch(`${process.env.REACT_APP_SERVER_URL}auth/signup`, { //REACT automatically handles .env files dont need to require 'dotenv'
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
