@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Redirect, NavLink } from 'react-router-dom'
+import { Button } from 'reactstrap';
+import { Form, FormGroup, Label, Input } from 'reactstrap';
+import { Container, Col } from 'reactstrap';
 // import { withRouter } from 'react-router'
 import '../../App.css';
 
@@ -155,41 +158,47 @@ const PetShow = ({match}, props) => {
     let contentShow;
     if (pet.summary) {
         contentShow = (
-        <div>
-            <img alt="pet" src={pet.petImage} />
-            <button onClick={handlePetDelete}>Remove This Pet</button>
-            <p><strong>{pet.name}</strong> is a {pet.breed} and is {pet.age} years old.</p>
-            <h3>Medical Records</h3>
-            <p>Has the pet had his rabies shot: {pet.summary.rabiesShot}.  Their microchip number is {pet.summary.microchip}</p>
-            <h3>Edit This Medical Record</h3>
-            <form onSubmit={handleSummaryEdit}>
-                <div>
-                    <label>Rabies Shot(y/n):</label>
-                    <input name="rabiesShot" value={rabiesShot} onChange={e => setRabiesShot(e.target.value)} />
-                </div>
-                <div>
-                    <label>Microchip #:</label>
-                    <input name="microchip" value={microchip} onChange={e => setMicrochip(e.target.value)} />
-                </div>
-                <input type="submit" />
-            </form>
-
+        <Container className="pet-show">
+            <Col>
+                <img id="petImage" alt="pet" src={pet.petImage} />
+                <Button id="delete" color="danger" onClick={handlePetDelete}>Remove This Pet</Button>
+                <p><strong>{pet.name}</strong> is a {pet.breed} and is {pet.age} years old.</p>
+            </Col>
+            <Col>
+                <h3>Medical Records</h3>
+                <p>Has the pet had his rabies shot: {pet.summary.rabiesShot}.  Their microchip number is {pet.summary.microchip}</p>
+                <h3>Edit This Medical Record</h3>
+                <Form onSubmit={handleSummaryEdit}>
+                    <FormGroup>
+                        <Label>Rabies Shot(y/n):</Label>
+                        <Input name="rabiesShot" value={rabiesShot} onChange={e => setRabiesShot(e.target.value)} />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label>Microchip #:</Label>
+                        <Input name="microchip" value={microchip} onChange={e => setMicrochip(e.target.value)} />
+                    </FormGroup>
+                    <Button color="success" type="submit">Submit</Button>
+                </Form>
+            </Col>
+            <Col>
             <h3>Previous Medical History</h3>
             {previousTreatment}
-    
+            </Col>
+            <Col>
             <h3>Add a Treatment</h3>
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>Treatment Date:</label>
-                        <input name="treatmentDate" value={treatmentDate} placeholder='01312020' onChange={e => setTreatmentDate(e.target.value)} />
-                    </div>
-                    <div>
-                        <label>Treatment:</label>
-                        <input name="treatment" value={treatment} onChange={e => setTreatment(e.target.value)} />
-                    </div>
-                    <input type="submit" />
-                </form>
-        </div>
+                <Form onSubmit={handleSubmit}>
+                    <FormGroup>
+                        <Label>Treatment Date:</Label>
+                        <Input name="treatmentDate" value={treatmentDate} placeholder='01312020' onChange={e => setTreatmentDate(e.target.value)} />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label>Treatment:</Label>
+                        <Input name="treatment" value={treatment} onChange={e => setTreatment(e.target.value)} />
+                    </FormGroup>
+                    <Button color="success" type="submit">Submit</Button>
+                </Form>
+            </Col>
+        </Container>
         )
     } else {
         console.log('No Pets Here')

@@ -39,7 +39,9 @@ const Profile = props => {
     content = pets.map((pet, i) => {
       return (
         <div key={i}>
-          <Link user={props} to={`/pets/show/${pet._id}`}>{pet.name}</Link>
+          <h3>
+            <Link user={props} to={`/pets/show/${pet._id}`}>{pet.name}</Link>
+          </h3>
         </div>
       )
     })
@@ -50,14 +52,15 @@ const Profile = props => {
 
 
   return (
-    <div>
+    <div className="profile">
       <h2>{props.user.firstname}'s Profile</h2>
       <h3>{props.user.firstname} {props.user.lastname}</h3>
-      <img alt="profile-pic" src={props.user.profileUrl} />
       <p>
         <strong>Email:</strong>
         {props.user.email}
       </p>
+      <img id="profilePic" alt="profile-pic" src={props.user.profileUrl} />
+      <h1>My Pets</h1>
       {content}
     </div>
   )

@@ -2,31 +2,17 @@
   text-align: center;
 }
 
-.App-header {
-  background-color: lightslategray;
-  min-height: 20vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
 main {
-  padding: 50px 0;
-}
-
-footer {
-  background-color: #282c34;
-  color: white;
-  font-size: 16px;
-  padding: 15px;
+  height: 315vh;
+  width: 100vw;
+  background-color: #FDF6DE;
 }
 
 nav {
-  background-color: #282c34;
-  padding: 2px;
+  height: 7vh;
+  background-color: #41545E;
+  padding: 10px;
+  width: 100vw;
 }
 
 nav ul {
@@ -43,21 +29,76 @@ nav a,
 nav a:visited {
   text-decoration: none;
   font-size: 22px;
-  color: mediumspringgreen;
+  color: #99CAC9;
 }
 
 nav a:hover {
-  color: hotpink;
+  color: #87A693;
+}
+
+footer {
+  height: 7vh;
+  width: 100vw;
+  bottom: 0;
+  background-color: #41545E;
+  color: white;
+  font-size: 16px;
+  display: flex;
+  position: fixed;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#petImage {
+  height: 250px;
+  width: 250px;
+  border: 5px solid black;
+}
+
+#profilePic {
+  height: 200px;
+  width: 200px;
+  border: 5px solid black;
+}
+
+#delete {
+  margin: 10px;
+}
+
+.profile {
+  padding: 50px;
 }
 
 .red {
   color: red;
 }
 
-/* .pet-container {
-  height: 2em;
-  width: 2em;
-  border: 5px solid black;
-} */
+.logo {
+  /* bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0; */
+  margin: 0 auto;
+  padding: 100px 0;
+}
+
+.pet-form {
+  grid-template-columns: 1fr 1fr;
+  display: flex;
+  padding: 20px;
+}
+
+.pet-show {
+  grid-template-columns: 1fr 1fr;
+  display: inline-flex;
+  padding: 20px;
+  margin: 0 auto;
+}
+
+.vet-table {
+  overflow-y: scroll;
+}
+
 
 
