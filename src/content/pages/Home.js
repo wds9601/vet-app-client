@@ -2,8 +2,8 @@ import React from 'react'
 
 const Home = props => {
   return (
-    <div>
-      <h2>HOME STUB</h2>
+    <div className="logo">
+      <img alt="logo" src="https://i.imgur.com/GOm6eh5.png" />
     </div>
   )
 }
