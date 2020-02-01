@@ -3,7 +3,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 // Custom components
-import Form from './pages/Form'
+import PetForm from './pages/PetForm'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import PetShow from './pages/PetShow'
@@ -22,7 +22,7 @@ const Content = props => {
           () => <Profile user={props.user} />
         } />
         <Route path="/pets/new" render={
-          () => <Form user={props.user} updateUser={props.updateUser} />
+          () => <PetForm user={props.user} updateUser={props.updateUser} />
         } />
         <Route path="/pets/show/:id" render={
           () => <PetShow user={props.user} />

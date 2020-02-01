@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Table } from 'reactstrap';
 import axios from 'axios'
 
 const config = {
@@ -18,18 +19,12 @@ class Vets extends Component {
         }
     }
     componentDidMount() {
-        console.log(`${process.env.REACT_APP_CORS_ANYWHERE}https://api.yelp.com/v3/businesses/search`)
         axios.get(`${process.env.REACT_APP_CORS_ANYWHERE}https://api.yelp.com/v3/businesses/search`, config)
         .then((response) => {
             console.log('success', response)
             let data = response.data.businesses
             this.setState({businesses: data})
-            // this.setState({name: data.name})
-            // this.setState({address: data.address1})
-            // this.setState({city: data.city})
-            // this.setState({state: data.state})
-            // this.setState({zip_code: data.zip_code})
-            // this.setState({display_phone: data.display_phone})
+    
         })
         .catch(err => {
             console.log(err)
@@ -40,9 +35,30 @@ class Vets extends Component {
     render(){
         let businesses = this.state.businesses.map((b, i) => {
             return (
-            <div key={i}>
-                {b.name}
-            </div>
+                <div className="vet-table" key={i}>
+                    <Table bordered>
+                        <thead>
+                            <tr>
+                                <th>Vet Clinic</th>
+                                <th>Address</th>
+                                <th>City</th>
+                                <th>State</th>
+                                <th>Zip Code</th>
+                                <th>Phone Number</th>
+                            </tr>
+                        </thead>
+                            <tbody>
+                                <tr >
+                                    <td><a href={b.url}>{b.name}</a></td>
+                                    <td>{b.location.address1}</td>
+                                    <td>{b.location.city}</td>
+                                    <td>{b.location.state}</td>
+                                    <td>{b.location.zip_code}</td>
+                                    <td>{b.display_phone}</td>
+                                </tr>
+                            </tbody>
+                    </Table>
+                </div>
             )
         })
 
