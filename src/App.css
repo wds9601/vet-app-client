@@ -74,11 +74,17 @@ footer {
   color: red;
 }
 
+.login {
+  padding: 60px;
+  width: 40em;
+  margin: 0 auto;
+}
+
 .logo {
-  /* bottom: 0;
+  bottom: 0;
   top: 0;
   left: 0;
-  right: 0; */
+  right: 0;
   margin: 0 auto;
   padding: 100px 0;
 }
@@ -93,6 +99,12 @@ footer {
   grid-template-columns: 1fr 1fr;
   display: inline-flex;
   padding: 20px;
+  margin: 0 auto;
+}
+
+.signup {
+  padding: 60px;
+  width: 40em;
   margin: 0 auto;
 }
 
