@@ -1,29 +1,24 @@
 import React, { useState, useEffect } from 'react'
-
 import { Redirect, NavLink } from 'react-router-dom'
 import { Button } from 'reactstrap';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
 import { Container, Col } from 'reactstrap';
-// import { withRouter } from 'react-router'
 import '../../App.css';
-
 const PetShow = ({match}, props) => {
     let [treatmentDate, setTreatmentDate] = useState('')
     let [treatment, setTreatment] = useState('')
-
     let [redirect, setRedirect] = useState(false)
     let [pet, setPet] = useState({})
     let [rabiesShot, setRabiesShot] = useState('')
     let [microchip,setMicrochip] = useState('')
     let [isHidden, setIsHidden] = useState(true)
-
     let petId = match.params.id
-
+    
     //Call getPet(with match params) on load
     useEffect(() => {
         getPet(match)
     }, [])
-
+  
     const getPet =  async () => {
         // let petId = match.params.id
         let token = localStorage.getItem('userToken')
@@ -42,7 +37,7 @@ const PetShow = ({match}, props) => {
             console.log('Fail pet fetch', err)
         })
     }
-
+    
     const handleSummaryEdit = (e) => {
         e.preventDefault()
         let petId = match.params.id
@@ -76,7 +71,7 @@ const PetShow = ({match}, props) => {
         })
         
     }
-
+    
     const handleSubmit = e => {
         e.preventDefault()
         let petId = match.params.id
@@ -103,16 +98,14 @@ const PetShow = ({match}, props) => {
             setTreatment('')
             setRedirect(true)
             // props.updateUser(result.token)
-
         })
         .catch(err => {
             console.log('Error Posting', err)
         })
     }
-
+    
     console.log('Pet object', pet)
     console.log('Pet treatment', pet.treatment)
-
     let previousTreatment
     if (pet.treatment) {
         previousTreatment = pet.treatment.map((treatment, i) => {
@@ -124,7 +117,7 @@ const PetShow = ({match}, props) => {
             )
         })
     }
-
+  
     const handlePetDelete = () => {
         let petId = match.params.id
         let token = localStorage.getItem('userToken')
@@ -144,7 +137,7 @@ const PetShow = ({match}, props) => {
                 console.log('handlePetDelete Error', err)
             })
     }
-
+    
     const toggleHidden = () => {
         // if isHidden = true, set to false
         // if isHidden = false, set to true
@@ -155,14 +148,13 @@ const PetShow = ({match}, props) => {
         }
         console.log('Is Hidden after toggle = ', isHidden)
     }
-
+    
     let editButton
     if (isHidden === true) {
         editButton = (
-            <button onClick={toggleHidden}>Edit This Medical Record</button>
+            <Button color="info" onClick={toggleHidden}>Edit This Medical Record</Button>
         )
     }
-
     let medicalForm
     if (isHidden === false) {
         medicalForm = (
@@ -179,31 +171,17 @@ const PetShow = ({match}, props) => {
                         </FormGroup>
                         <Button color="success" type="submit">Submit</Button>
                     </Form>
-                <button onClick={toggleHidden}>Minimize This Form</button>
+                <Button color="info" onClick={toggleHidden}>Minimize This Form</Button>
             </div>
         )
     }
-    // const medicalForm = () => {
-    //     // if isHidden is true, show only button to edit med record
-    //     //if isHiddem is false, show form
-    //     if (isHidden === false) {
-    //         return (
-                
-    //         )
-    //     }
-       
-    // }
-
     
     
     console.log('BEFORE REDIRECT 142', petId)
-
     if (redirect) {
         return <Redirect to="/profile" />
     }
-
     console.log('BEFORE RENDER 147', petId)
-
     let contentShow;
     if (pet.summary) {
         contentShow = (
@@ -218,18 +196,6 @@ const PetShow = ({match}, props) => {
                 <p>Has the pet had his rabies shot: {pet.summary.rabiesShot}.  Their microchip number is {pet.summary.microchip}</p>
                 {medicalForm}
                 {editButton}
-                {/* <h3>Edit This Medical Record</h3>
-                <Form onSubmit={handleSummaryEdit}>
-                    <FormGroup>
-                        <Label>Rabies Shot(y/n):</Label>
-                        <Input name="rabiesShot" value={rabiesShot} onChange={e => setRabiesShot(e.target.value)} />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label>Microchip #:</Label>
-                        <Input name="microchip" value={microchip} onChange={e => setMicrochip(e.target.value)} />
-                    </FormGroup>
-                    <Button color="success" type="submit">Submit</Button>
-                </Form> */}
             </Col>
             <Col>
             <h3>Previous Medical History</h3>
@@ -255,12 +221,10 @@ const PetShow = ({match}, props) => {
         console.log('No Pets Here')
         contentShow = <p>Loading</p>
     }
-
     return (
         <div>
             {contentShow}
         </div>
     )
 }
-
 export default PetShow

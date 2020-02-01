@@ -17,6 +17,7 @@ nav {
 
 nav ul {
   list-style-type: none;
+  margin-left: -45px;
 }
 
 nav li {
@@ -87,6 +88,10 @@ footer {
   right: 0;
   margin: 0 auto;
   padding: 100px 0;
+}
+
+.nav-logo{
+  float: left;
 }
 
 .pet-form {

@@ -68,8 +68,7 @@ const PetForm = props => {
     return (
         <Container className="pet-form">
             <Col>
-                <h1>Add A Pet!</h1>
-                <p>Pet Image (optional):</p>
+                <h1>Add A Pet Picture!</h1>
                 <img id="petImage" alt="pet" src={petImage} />
                 <Cloudinary setPetImage={setPetImage}/>
             </Col>
