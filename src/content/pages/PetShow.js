@@ -138,6 +138,10 @@ const PetShow = ({match}, props) => {
                 console.log('handlePetDelete Error', err)
             })
     }
+
+    const toggleHidden = () => {
+        
+    }
     
     console.log('BEFORE REDIRECT 142', petId)
 
