@@ -9,6 +9,7 @@ import Login from './pages/Login'
 import PetShow from './pages/PetShow'
 import Profile from './pages/Profile'
 import Signup from './pages/Signup'
+import Vets from './pages/Vets'
 
 const Content = props => {
   return (
@@ -26,6 +27,9 @@ const Content = props => {
         <Route path="/pets/show/:id" render={
           () => <PetShow user={props.user} />
         } component={PetShow} />
+        <Route path="/vets" render={
+        () => <Vets user={props.user} />
+        } />
         <Route path="/signup" render={
           () => <Signup user={props.user} updateUser={props.updateUser} />
         } />
