@@ -37,7 +37,7 @@ const Nav = props => {
           <Link to="/pets/new">Add A Pet</Link>
         </li>
         <li>
-          <Link to="">See a Vet</Link>
+          <Link to="/vets">See Vets</Link>
         </li>
         <li>
           <Link to="/" onClick={handleLogout}>Logout</Link>
