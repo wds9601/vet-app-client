@@ -15,6 +15,7 @@ const PetShow = ({match}, props) => {
     let [pet, setPet] = useState({})
     let [rabiesShot, setRabiesShot] = useState('')
     let [microchip,setMicrochip] = useState('')
+    let [isHidden, setIsHidden] = useState(true)
 
     let petId = match.params.id
 
@@ -145,8 +146,55 @@ const PetShow = ({match}, props) => {
     }
 
     const toggleHidden = () => {
-        
+        // if isHidden = true, set to false
+        // if isHidden = false, set to true
+        if (isHidden === true) {
+            setIsHidden(false)
+        } else if (isHidden === false) {
+            setIsHidden(true)
+        }
+        console.log('Is Hidden after toggle = ', isHidden)
     }
+
+    let editButton
+    if (isHidden === true) {
+        editButton = (
+            <button onClick={toggleHidden}>Edit This Medical Record</button>
+        )
+    }
+
+    let medicalForm
+    if (isHidden === false) {
+        medicalForm = (
+            <div>
+                <h3>Edit This Medical Record</h3>
+                    <Form onSubmit={handleSummaryEdit}>
+                        <FormGroup>
+                            <Label>Rabies Shot(y/n):</Label>
+                            <Input name="rabiesShot" value={rabiesShot} onChange={e => setRabiesShot(e.target.value)} />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label>Microchip #:</Label>
+                            <Input name="microchip" value={microchip} onChange={e => setMicrochip(e.target.value)} />
+                        </FormGroup>
+                        <Button color="success" type="submit">Submit</Button>
+                    </Form>
+                <button onClick={toggleHidden}>Minimize This Form</button>
+            </div>
+        )
+    }
+    // const medicalForm = () => {
+    //     // if isHidden is true, show only button to edit med record
+    //     //if isHiddem is false, show form
+    //     if (isHidden === false) {
+    //         return (
+                
+    //         )
+    //     }
+       
+    // }
+
+    
     
     console.log('BEFORE REDIRECT 142', petId)
 
@@ -168,7 +216,9 @@ const PetShow = ({match}, props) => {
             <Col>
                 <h3>Medical Records</h3>
                 <p>Has the pet had his rabies shot: {pet.summary.rabiesShot}.  Their microchip number is {pet.summary.microchip}</p>
-                <h3>Edit This Medical Record</h3>
+                {medicalForm}
+                {editButton}
+                {/* <h3>Edit This Medical Record</h3>
                 <Form onSubmit={handleSummaryEdit}>
                     <FormGroup>
                         <Label>Rabies Shot(y/n):</Label>
@@ -179,7 +229,7 @@ const PetShow = ({match}, props) => {
                         <Input name="microchip" value={microchip} onChange={e => setMicrochip(e.target.value)} />
                     </FormGroup>
                     <Button color="success" type="submit">Submit</Button>
-                </Form>
+                </Form> */}
             </Col>
             <Col>
             <h3>Previous Medical History</h3>
