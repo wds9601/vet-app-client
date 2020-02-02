@@ -20,7 +20,6 @@ const Profile = props => {
     .then(response => {
       response.json().then(result => {
         setPets(result)
-        console.log(result)
       })
       .catch(err => {
         console.log('Error in pet fetch', err)
@@ -35,7 +34,6 @@ const Profile = props => {
 
   let content;
   if (pets.length > 0) {
-    console.log(pets)
     content = pets.map((pet, i) => {
       return (
         <div key={i}>

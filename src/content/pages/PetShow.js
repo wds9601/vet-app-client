@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Redirect, NavLink } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { Button } from 'reactstrap';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
 import { Container, Col } from 'reactstrap';
 import '../../App.css';
+
 const PetShow = ({match}, props) => {
     let [treatmentDate, setTreatmentDate] = useState('')
     let [treatment, setTreatment] = useState('')
@@ -18,7 +19,8 @@ const PetShow = ({match}, props) => {
     useEffect(() => {
         getPet(match)
     }, [])
-  
+
+    // Fetch all pet info for logged-in User
     const getPet =  async () => {
         // let petId = match.params.id
         let token = localStorage.getItem('userToken')
@@ -30,7 +32,6 @@ const PetShow = ({match}, props) => {
         })
         .then(response => response.json())
         .then(foundPet => {
-            // console.log('Success', foundPet)
             setPet(foundPet)
         })
         .catch(err => {
@@ -38,11 +39,11 @@ const PetShow = ({match}, props) => {
         })
     }
     
+    // Edit Medical Record Data
     const handleSummaryEdit = (e) => {
         e.preventDefault()
         let petId = match.params.id
         let token = localStorage.getItem('userToken')
-        console.log('Submitted the form', petId)
         // Forming the data
         let data = {
             rabiesShot,
@@ -59,9 +60,6 @@ const PetShow = ({match}, props) => {
         })
         .then(response => response.json())
         .then(newSummary => {
-            console.log('Success', newSummary)
-            console.log('Rabies Shot', newSummary.summary.rabiesShot)
-            console.log('Microchip', newSummary.summary.microchip)
             setRabiesShot(newSummary.summary.rabiesShot)
             setMicrochip(newSummary.summary.microchip)
             setRedirect(true)
@@ -72,6 +70,7 @@ const PetShow = ({match}, props) => {
         
     }
     
+    // Create a new Treatment for user pet
     const handleSubmit = e => {
         e.preventDefault()
         let petId = match.params.id
@@ -97,15 +96,13 @@ const PetShow = ({match}, props) => {
             setTreatmentDate('')
             setTreatment('')
             setRedirect(true)
-            // props.updateUser(result.token)
         })
         .catch(err => {
             console.log('Error Posting', err)
         })
     }
     
-    console.log('Pet object', pet)
-    console.log('Pet treatment', pet.treatment)
+    // Display all records in pet medical history
     let previousTreatment
     if (pet.treatment) {
         previousTreatment = pet.treatment.map((treatment, i) => {
@@ -117,7 +114,8 @@ const PetShow = ({match}, props) => {
             )
         })
     }
-  
+
+    // Delete one pet by ID
     const handlePetDelete = () => {
         let petId = match.params.id
         let token = localStorage.getItem('userToken')
@@ -138,23 +136,24 @@ const PetShow = ({match}, props) => {
             })
     }
     
+    //  Toggle isHidden property of medical form
     const toggleHidden = () => {
-        // if isHidden = true, set to false
-        // if isHidden = false, set to true
         if (isHidden === true) {
             setIsHidden(false)
         } else if (isHidden === false) {
             setIsHidden(true)
         }
-        console.log('Is Hidden after toggle = ', isHidden)
     }
     
+    // Show 'Edit' button when form is hidden, hide while form is showing
     let editButton
     if (isHidden === true) {
         editButton = (
             <Button color="info" onClick={toggleHidden}>Edit This Medical Record</Button>
         )
     }
+
+    //  Edit medical record form
     let medicalForm
     if (isHidden === false) {
         medicalForm = (
@@ -176,12 +175,12 @@ const PetShow = ({match}, props) => {
         )
     }
     
-    
-    console.log('BEFORE REDIRECT 142', petId)
+    // Redirect to user profile page if 'Redirect' state is changed by a function
     if (redirect) {
         return <Redirect to="/profile" />
     }
-    console.log('BEFORE RENDER 147', petId)
+
+    // If fetch has not completed, show 'Loading'; when fetch is completed state updates and re-renders page with data displayed
     let contentShow;
     if (pet.summary) {
         contentShow = (

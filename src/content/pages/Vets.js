@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Table } from 'reactstrap';
 import axios from 'axios'
 
+// Define params and header for Yelp API call
 const config = {
     headers: {
         'Authorization': `Bearer ${process.env.REACT_APP_YELP_API_KEY}` 
@@ -11,6 +12,7 @@ const config = {
         location: 'seattle'
     }
 }
+
 class Vets extends Component {
     constructor(props) {
         super(props)
@@ -18,10 +20,11 @@ class Vets extends Component {
             businesses: []
         }
     }
+
+    // On component load, fetch local vet data from Yelp and update 'businesses' state with fetched data
     componentDidMount() {
         axios.get(`${process.env.REACT_APP_CORS_ANYWHERE}https://api.yelp.com/v3/businesses/search`, config)
         .then((response) => {
-            console.log('success', response)
             let data = response.data.businesses
             this.setState({businesses: data})
     
@@ -31,7 +34,7 @@ class Vets extends Component {
         })
     }
 
-    
+    //  Render default text or render data when fetch completed
     render(){
         let businesses = this.state.businesses.map((b, i) => {
             return (
