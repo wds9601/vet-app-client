@@ -38,7 +38,7 @@ class Vets extends Component {
     render(){
         let businesses = this.state.businesses.map((b, i) => {
             return (
-                <div className="vet-table" key={i}>
+                <div key={i}>
                     <Table bordered>
                         <thead>
                             <tr>
@@ -68,7 +68,9 @@ class Vets extends Component {
         return (
         <div className='results'>
             <h1>Here are some vets!</h1>
-            {businesses}
+                <div className="vet-table">
+                    {businesses}
+                </div>
         </div>
         )
     }
