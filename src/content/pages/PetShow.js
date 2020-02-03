@@ -170,6 +170,7 @@ const PetShow = ({match}, props) => {
                         </FormGroup>
                         <Button color="success" type="submit">Submit</Button>
                     </Form>
+                    <br />
                 <Button color="info" onClick={toggleHidden}>Minimize This Form</Button>
             </div>
         )
