@@ -217,7 +217,6 @@ const PetShow = ({match}, props) => {
         </Container>
         )
     } else {
-        console.log('No Pets Here')
         contentShow = <p>Loading</p>
     }
     return (

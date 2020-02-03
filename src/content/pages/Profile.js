@@ -44,7 +44,6 @@ const Profile = props => {
       )
     })
   } else {
-    console.log('No Pets Here')
     content = <p>No Pets Yet...</p>
   }
 
