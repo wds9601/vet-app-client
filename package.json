@@ -14,10 +14,12 @@
     "jwt-decode": "^2.2.0",
     "react": "^16.9.0",
     "react-async": "^10.0.0",
+    "react-bootstrap": "^1.0.0-beta.17",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "^3.3.0",
     "reactstrap": "^8.4.1",
+    "styled-components": "^5.0.1",
     "yelp-fusion": "^3.0.0"
   },
   "scripts": {

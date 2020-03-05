@@ -1,8 +1,18 @@
 import React from 'react'
 import { Link, Redirect } from 'react-router-dom'
+import { Nav, Navbar } from 'react-bootstrap';
+import styled from 'styled-components';
 
 
-const Nav = props => {
+const Styles = styled.div`
+.navbar { background-color: #41545E; }
+a, .navbar-nav, .navbar-light .nav-link {
+color: #87A693;
+&:hover { color: #99CAC9; }
+}
+`;
+
+const NavigationBar = props => {
   const handleLogout = e => {
     e.preventDefault()
     // Remove the token from localstorage (or cookies)
@@ -46,18 +56,22 @@ const Nav = props => {
   }
 
   return (
-    <nav>
-      <ul>
-        <li>
+    <Styles>
+      <Navbar expand="lg">
+          <Navbar.Toggle aria-controls="basic-navbar-nav"/>
           <img className="nav-logo" alt="logo" src="https://i.imgur.com/YyfzRKI.png?1" />
-        </li>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        {links}
-      </ul>
-    </nav>
+          <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="nav">
+                {links}
+              </Nav>
+          </Navbar.Collapse>
+      </Navbar>
+    </Styles>
   )
 }
 
-export default Nav
+export default NavigationBar
+
+
+
+

@@ -4,6 +4,7 @@ import Cloudinary from './Cloudinary'
 import { Button } from 'reactstrap';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
 import { Container, Col } from 'reactstrap';
+import Image from 'react-bootstrap/Image'
 import '../../App.css';
 
 
@@ -69,7 +70,7 @@ const PetForm = props => {
         <Container className="pet-form">
             <Col>
                 <h1>Add A Pet Picture!</h1>
-                <img id="petImage" alt="pet" src={petImage} />
+                <Image id="petImage" alt="pet" src={petImage} fluid />
                 <Cloudinary setPetImage={setPetImage}/>
             </Col>
             <Col>

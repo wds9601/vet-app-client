@@ -1,5 +1,6 @@
 import React, {useState, useEffect } from 'react'
 import { Redirect, Link } from 'react-router-dom'
+import Image from 'react-bootstrap/Image'
 
 const Profile = props => {
   //Declare and initialize state
@@ -56,7 +57,7 @@ const Profile = props => {
         <strong>Email:</strong>
         {props.user.email}
       </p>
-      <img id="profilePic" alt="profile-pic" src={props.user.profileUrl} />
+      <Image id="profilePic" alt="profile-pic" src={props.user.profileUrl} fluid />
       <h1>My Pets</h1>
       {content}
     </div>

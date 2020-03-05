@@ -8,33 +8,9 @@ main {
   background-color: #FDF6DE;
 }
 
-nav {
-  height: 7vh;
-  background-color: #41545E;
-  padding: 10px;
-  width: 100vw;
-}
-
-nav ul {
-  list-style-type: none;
-  margin-left: -45px;
-}
-
 nav li {
   display: inline;
-  color: white;
-  margin-right: 25px;
-}
-
-nav a,
-nav a:visited {
-  text-decoration: none;
-  font-size: 22px;
-  color: #99CAC9;
-}
-
-nav a:hover {
-  color: #87A693;
+  padding: .5em;
 }
 
 footer {
@@ -52,14 +28,12 @@ footer {
 }
 
 #petImage {
-  height: 250px;
-  width: 250px;
   border: 5px solid black;
 }
 
 #profilePic {
-  height: 200px;
-  width: 200px;
+  /* height: 200px;
+  width: 200px; */
   border: 5px solid black;
 }
 
@@ -77,17 +51,12 @@ footer {
 
 .login {
   padding: 60px;
-  width: 40em;
   margin: 0 auto;
 }
 
 .logo {
-  bottom: 0;
-  top: 0;
-  left: 0;
-  right: 0;
   margin: 0 auto;
-  padding: 100px 0;
+  padding: 12em 0;
 }
 
 .nav-logo{
@@ -101,21 +70,19 @@ footer {
 }
 
 .pet-show {
-  grid-template-columns: 1fr 1fr;
-  display: inline-flex;
-  padding: 20px;
+  /* grid-template-columns: 1fr 1fr; */
+  display: flex;
+  padding: 1em;
   margin: 0 auto;
 }
 
 .signup {
   padding: 60px;
-  width: 40em;
   margin: 0 auto;
 }
 
 .vet-table {
   height: 36em !important;
-  width: 50em;
   margin: 0 auto;
   padding: 5px;
   overflow-y: scroll;
