@@ -39,7 +39,7 @@ class Vets extends Component {
         let businesses = this.state.businesses.map((b, i) => {
             return (
                 <div key={i}>
-                    <Table bordered>
+                    <Table responsive>
                         <thead>
                             <tr>
                                 <th>Vet Clinic</th>

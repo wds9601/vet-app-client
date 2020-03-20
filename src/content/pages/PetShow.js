@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 import { Button } from 'reactstrap';
 import { Form, FormGroup, Label, Input } from 'reactstrap';
-import { Container, Col } from 'reactstrap';
+import { Container, Col, Row } from 'reactstrap';
+import Image from 'react-bootstrap/Image'
 import '../../App.css';
 
 const PetShow = ({match}, props) => {
@@ -186,36 +187,41 @@ const PetShow = ({match}, props) => {
     if (pet.summary) {
         contentShow = (
         <Container className="pet-show">
-            <Col>
-                <img id="petImage" alt="pet" src={pet.petImage} />
-                <Button id="delete" color="danger" onClick={handlePetDelete}>Remove This Pet</Button>
-                <p><strong>{pet.name}</strong> is a {pet.breed} and is {pet.age} years old.</p>
-            </Col>
-            <Col>
-                <h3>Medical Records</h3>
-                <p>Has the pet had his rabies shot: {pet.summary.rabiesShot}.  Their microchip number is {pet.summary.microchip}</p>
-                {medicalForm}
-                {editButton}
-            </Col>
-            <Col>
-            <h3>Previous Medical History</h3>
-            {previousTreatment}
-            </Col>
-            <Col>
-            <h3>Add a Treatment</h3>
-                <Form onSubmit={handleSubmit}>
-                    <FormGroup>
-                        <Label>Treatment Date:</Label>
-                        <Input name="treatmentDate" value={treatmentDate} placeholder='01312020' onChange={e => setTreatmentDate(e.target.value)} />
-                    </FormGroup>
-                    <FormGroup>
-                        <Label>Treatment:</Label>
-                        <Input name="treatment" value={treatment} onChange={e => setTreatment(e.target.value)} />
-                    </FormGroup>
-                    <Button color="success" type="submit">Submit</Button>
-                </Form>
-            </Col>
-        </Container>
+            <Row>
+                <Col>
+                    <Image id="petImage" alt="pet" src={pet.petImage} fluid />
+                    <Button id="delete" color="danger" onClick={handlePetDelete}>Remove This Pet</Button>
+                    <p><strong>{pet.name}</strong> is a {pet.breed} and is {pet.age} years old.</p>
+                </Col>
+                <Col>
+                    <h3>Medical Records</h3>
+                    <p>Has the pet had his rabies shot: {pet.summary.rabiesShot}.</p>
+                    <p>Their microchip number is {pet.summary.microchip}</p>
+                    {medicalForm}
+                    {editButton}
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                <h3>Previous Medical History</h3>
+                {previousTreatment}
+                </Col>
+                <Col>
+                <h3>Add a Treatment</h3>
+                    <Form onSubmit={handleSubmit}>
+                        <FormGroup>
+                            <Label>Treatment Date:</Label>
+                            <Input name="treatmentDate" value={treatmentDate} placeholder='01312020' onChange={e => setTreatmentDate(e.target.value)} />
+                        </FormGroup>
+                        <FormGroup>
+                            <Label>Treatment:</Label>
+                            <Input name="treatment" value={treatment} onChange={e => setTreatment(e.target.value)} />
+                        </FormGroup>
+                        <Button color="success" type="submit">Submit</Button>
+                    </Form>
+                </Col>
+            </Row>
+        </Container> 
         )
     } else {
         contentShow = <p>Loading</p>
